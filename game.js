@@ -1,82 +1,81 @@
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-/* ================= VOITURES ================= */
-const cars = {
-    raptor: { name: "RAPTOR F1", color: "#ff2a2a", speed: 6 },
-    voltex: { name: "VOLTEX GT", color: "#00ffcc", speed: 5 },
-    phantom: { name: "PHANTOM R", color: "#ffffff", speed: 4 }
-};
-
-let selectedCar = cars.raptor;
-
-/* ================= JOUEUR ================= */
-const car = {
-    x: canvas.width / 2 - 20,
-    y: canvas.height - 120,
-    width: 40,
-    height: 70,
-    speed: selectedCar.speed
-};
-
-/* ================= LOADING ================= */
-setTimeout(() => {
-    document.getElementById("loadingScreen").style.display = "none";
-    canvas.style.display = "block";
-    startGame();
-}, 3000);
-
-/* ================= CONTROLES ================= */
-window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") car.x -= car.speed;
-    if (e.key === "ArrowRight") car.x += car.speed;
-    if (e.key === "ArrowUp") car.y -= car.speed;
-    if (e.key === "ArrowDown") car.y += car.speed;
-});
-
-document.getElementById("left").onclick = () => car.x -= car.speed;
-document.getElementById("right").onclick = () => car.x += car.speed;
-document.getElementById("up").onclick = () => car.y -= car.speed;
-document.getElementById("down").onclick = () => car.y += car.speed;
-
-/* ================= JEU ================= */
-function startGame() {
-    requestAnimationFrame(gameLoop);
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #020617;
+    color: white;
+    text-align: center;
 }
 
-function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Route
-    ctx.fillStyle = "#333";
-    ctx.fillRect(canvas.width / 4, 0, canvas.width / 2, canvas.height);
-
-    // Ligne centrale
-    ctx.strokeStyle = "#fff";
-    ctx.setLineDash([20, 20]);
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2, 0);
-    ctx.lineTo(canvas.width / 2, canvas.height);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // Voiture
-    ctx.fillStyle = selectedCar.color;
-    ctx.fillRect(car.x, car.y, car.width, car.height);
-
-    // Nom voiture
-    ctx.fillStyle = "#00ffcc";
-    ctx.font = "16px Arial";
-    ctx.fillText(selectedCar.name, 10, 30);
-
-    requestAnimationFrame(gameLoop);
+/* LOADER */
+#loader {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* ================= CHANGER DE VOITURE ================= */
-function changeCar(type) {
-    selectedCar = cars[type];
-    car.speed = selectedCar.speed;
+.glow {
+    font-size: 34px;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px cyan; }
+    to { text-shadow: 0 0 25px cyan; }
+}
+
+.spinner {
+    margin-top: 20px;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #334155;
+    border-top: 4px solid cyan;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none;
+}
+
+/* JEU */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 90px);
+    gap: 12px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.cell {
+    width: 90px;
+    height: 90px;
+    background: #1e293b;
+    font-size: 42px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.cell:hover {
+    background: #334155;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 6px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.modes {
+    margin-bottom: 10px;
 }
