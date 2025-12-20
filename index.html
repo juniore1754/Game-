@@ -2,38 +2,48 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>TGL GAMING – The King Game</title>
+    <title>AmstrongBillyking Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- ÉCRAN DE CHARGEMENT -->
-<div id="loadingScreen">
-    <h1>👑 Amstrong Billy</h1>
-    <h2>The King Game</h2>
-    <p>TGL GAMING</p>
-    <div class="loader"></div>
+<div id="loader">
+    <h1 class="glow">🎮 AmstrongBillyking Game</h1>
+    <h2>TGL GAMING</h2>
+    <div class="spinner"></div>
 </div>
 
-<!-- SÉLECTION DE VOITURE -->
-<div id="carSelect">
-    <button onclick="changeCar('raptor')">RAPTOR F1</button>
-    <button onclick="changeCar('voltex')">VOLTEX GT</button>
-    <button onclick="changeCar('phantom')">PHANTOM R</button>
-</div>
+<!-- AUDIO -->
+<audio id="music" src="music.mp3"></audio>
 
 <!-- JEU -->
-<canvas id="gameCanvas"></canvas>
+<div id="game" class="hidden">
+    <h1>Tic Tac Toe</h1>
 
-<!-- CONTRÔLES MOBILES -->
-<div id="controls">
-    <button id="left">⬅️</button>
-    <button id="right">➡️</button>
-    <button id="up">⬆️</button>
-    <button id="down">⬇️</button>
+    <div class="modes">
+        <button onclick="setMode('solo')">🤖 Solo</button>
+        <button onclick="setMode('multi')">👥 2 Joueurs</button>
+    </div>
+
+    <p id="status">Choisis un mode</p>
+
+    <div class="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+    </div>
+
+    <button onclick="restartGame()">🔄 Rejouer</button>
 </div>
 
-<script src="game.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
